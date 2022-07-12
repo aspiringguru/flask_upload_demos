@@ -1,0 +1,5 @@
+unzipped/
+flask_file_upload_2_env/
+uploads/
+*.zip
+notes.txt
