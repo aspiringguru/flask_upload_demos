@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <title>File Upload</title>
+  </head>
+  <body>
+    saved as filename fname:{{ fname }}<br>
+    fsize:{{ fsize }}<br>
+    NB: existing uploads with similar filenames.<br>
+    {{ df_existing_files }}<br>
+    <table>
+    {% for existing_fname in existing_fnames %}
+        <tr>
+            <td>{{ existing_fname }}</td>
+        </tr>
+    {% endfor %}
+  </table>
+  </body>
+</html>

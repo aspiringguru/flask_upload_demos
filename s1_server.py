@@ -1,5 +1,7 @@
+# this will not create new filename for duplicate file uploads.
 # (A) INIT
 # (A1) LOAD MODULES
+#pip freeze | findstr Werkzeug = Werkzeug==2.1.2
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
 
@@ -8,7 +10,9 @@ app = Flask(__name__)
 HOST_NAME = "localhost"
 HOST_PORT = 80
 app.config["UPLOAD_FOLDER"] = "uploads/"
-# app.debug = True
+#app.config["MAX_CONTENT_LENGTH"] = 10 * 1024
+#nb x *1024 = x Kb, X * 1024 * 1024 = X MB
+app.debug = True
 
 # (B) HTML UPLOAD PAGE
 @app.route("/")
@@ -21,6 +25,19 @@ def save_upload():
   if request.method == "POST":
     print("request.method == 'POST' = True")
     f = request.files["file"]
+    print("type(f):", type(f))
+    #print("f.stream.seek(0,2):", f.stream.seek(0,2))#returns filesize in bytes, causes .save to fail. zero filesize.
+    #print("f.seek(0,2):", f.seek(0,2))#returns filesize in bytes, causes .save to fail. zero filesize.
+    #print("f.tell():", f.tell())#returns filesize as zero, .save still works.
+    #print("f.stream.tell():", f.stream.tell())#returns filesize as zero, .save still works.
+    print("dir(f)\n", dir(f))
+    print("f.content_length:", f.content_length)
+    print("f.content_type:", f.content_type)
+    print("f.filename:", f.filename)
+    print("f.mimetype:", f.mimetype)
+    print("f.mimetype_params:", f.mimetype_params)
+    print("f.name:", f.name)
+    print("type(f.headers):", type(f.headers))
     filename = secure_filename(f.filename)
     print("filename:", filename)
     f.save(app.config["UPLOAD_FOLDER"] + filename)

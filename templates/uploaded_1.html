@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <title>File Upload</title>
+    <style>
+      table, th, td {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    Saved as filename fname:{{ fname }} with file size {{ fsize }}
+    <a href="/process_file?file_name={{ fname }}">process this file</a><br>
+    {% if existing_fnames|length > 0 %}
+      Existing uploads with similar filenames.<br>
+      <table>
+        <thead>
+          <tr>
+            {% for col in column_names %}
+              <th> {{col}} </th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in row_data %}
+            <tr>
+              {% for col, row_ in zip(column_names, row) %}
+                <td>{{row_}}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      No existing duplicate files<br>
+    {% endif %}<br>
+</html>
