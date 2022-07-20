@@ -1,5 +1,7 @@
 unzipped/
 flask_file_upload_2_env/
 uploads/
+static/process_output/
+static/uploaded_files/
 *.zip
 notes.txt

@@ -4,11 +4,47 @@
     <title>File Upload</title>
   </head>
   <body>
-    {{ err_msg}}<br>
+    {{ err_msg }}<br>
+    {% if deleted_file_count>0 %} {{ deleted_file_count }} files deleted. {% endif %}<br>
     <form action="/" method="POST" enctype="multipart/form-data">
         {{ form.csrf_token }}
         {{ form.all }}
-        <button type="submit">upload</button>
+        <button type="submit" id="submit_button">upload</button>
     </form>
+    <p id="selected_file_size"></p>
+    <p id="selected_file_type"></p>
+    <p>max_file_size = {{ max_file_size }}<p>
+    <p id="selected_file_isok"></p>
+    <script>
+      console.log("document.getElementById('submit_button'):"+document.getElementById("submit_button"))
+      document.getElementById("submit_button").style.visibility = "hidden";
+      document.getElementById('all').addEventListener('change', checkFile, false);
+      function checkFile(e) {
+          var file_list = e.target.files;
+          for (var i = 0, file; file = file_list[i]; i++) {
+              console.log("file.type:", file.type)
+              var fileExtension = file.name.split('.')[file.name.split('.').length - 1].toLowerCase();
+              //txt = "File type : " +fileExtension + "\n";
+              document.querySelector('#selected_file_type').innerText = "File type : ("+file.type+")  "+fileExtension
+              if(file.size > (1024 * 1024)){
+                  document.querySelector('#selected_file_size').innerText = "File Size :" + (file.size / (1024*1024)).toFixed(2) + " MB";
+                  //txt += "Size: " + (file.size / (1024*1024)).toFixed(2) + " MB \n";
+              } else {
+                  document.querySelector('#selected_file_size').innerText = "File Size :" + (file.size / (1024)).toFixed(2) + " KB";
+                  //txt += "Size: " + (file.size / 1024).toFixed(2) + " KB \n";
+              }
+              console.log("max_file_size = "+{{ max_file_size }})
+              console.log("file.size = ", file.size)
+              if (file.size > {{ max_file_size }}) {
+                console.log("file size too big")
+                document.querySelector('#selected_file_isok').innerText = "selected file size is too big"
+              } else {
+                console.log("file size is ok")
+                document.querySelector('#selected_file_isok').innerText = "selected file size is ok to upload."
+                document.getElementById("submit_button").style.visibility = "visible";
+              }
+          }
+      }
+    </script>
   </body>
 </html>

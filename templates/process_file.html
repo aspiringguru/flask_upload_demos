@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Process file</title>
+  </head>
+  <body>
+    <p>Process File</p>
+    this is route /process_file : filename : {{ file_name }}<br>
+    dataset1:<br> {{ dataset1 }}<br>
+    dataset2:<br> {{ dataset2 }}<br>
+    <img src="/static/process_output/{{ output_file_name_prefix }} PHMB 0.1%_errorbars.png" alt="PHMB 0.1%_errorbars" width="500" height="600"><br>
+    <img src="/static/process_output/{{ output_file_name_prefix }} PHMB 0.2%_errorbars.png" alt="PHMB 0.2%_errorbars" width="500" height="600"><br>
+    <img src="/static/process_output/{{ output_file_name_prefix }}_NAC_errorbars.png" alt="_OD_NAC_errorbars" width="500" height="600"><br>
+    <img src="/static/process_output/{{ output_file_name_prefix }}_TRIS_errorbars.png" alt="_OD_TRIS_errorbars" width="500" height="600"><br>
+    <img src="/static/process_output/{{ output_file_name_prefix }}_all_medium_w_errorbars.png" alt="_all_medium_w_errorbars" width="500" height="600"><br>
+    <a href="/static/process_output/{{ output_file_name_prefix }} PHMB 0.1%_output.xlsx">PHMB 0.1%_output.xlsx</a><br>
+    <a href="/static/process_output/{{ output_file_name_prefix }} PHMB 0.2%_output.xlsx">PHMB 0.2%_output.xlsx</a><br>
+    <a href="/static/process_output/{{ output_file_name_prefix }}_NAC_output.xlsx">NAC_output.xlsx</a><br>
+    <a href="/static/process_output/{{ output_file_name_prefix }}_TRIS_output.xlsx">TRIS_output.xlsx</a><br>
+    <a href="/static/process_output/{{ output_file_name_prefix }}_all_medium_w_errorbars.xlsx">_all_medium_w_errorbars.xlsx</a><br>
+    <script>
+
+    </script>
+  </body>
+</html>

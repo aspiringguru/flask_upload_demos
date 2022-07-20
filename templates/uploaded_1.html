@@ -13,6 +13,7 @@
     <a href="/process_file?file_name={{ fname }}">process this file</a><br>
     {% if existing_fnames|length > 0 %}
       Existing uploads with similar filenames.<br>
+      <a href="/delete_similar_filenames?original_fname={{ fname }}">Delete all duplicate files</a><br>
       <table>
         <thead>
           <tr>

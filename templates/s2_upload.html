@@ -6,8 +6,34 @@
   <body>
     Simple Upload Form<br>
     <form action="http://localhost/upload" method="POST" enctype="multipart/form-data">
-      <input type="file" name="file" required/>
+      <input type="file" name="file" id="fileid" required/>
       <input type="submit" value="Upload!"/>
     </form>
+    max_file_size = {{ max_file_size }}<br>
+    <script>
+      document.getElementById('fileid').addEventListener('change', checkFile, false);
+      function checkFile(e) {
+          var file_list = e.target.files;
+          for (var i = 0, file; file = file_list[i]; i++) {
+              console.log("file.type:", file.type)
+              var fileExtension = file.name.split('.')[file.name.split('.').length - 1].toLowerCase();
+              var iConvert = (file.size / 1024).toFixed(2);
+              txt = "File type : " +fileExtension + "\n";
+              if(file.size > (1024 * 1024)){
+                  txt += "Size: " + (file.size / (1024*1024)).toFixed(2) + " MB \n";
+              } else {
+              txt += "Size: " + (file.size / 1024).toFixed(2) + " KB \n";
+              }
+              console.log("max_file_size = "+{{ max_file_size }})
+              console.log("file.size = ", file.size)
+              if (file.size > {{ max_file_size }}) {
+                console.log("file size too big")
+              } else {
+                console.log("file size too big")
+              }
+              alert(txt);
+          }
+      }
+      </script>
   </body>
 </html>
